@@ -1,0 +1,40 @@
+{
+  "rules": {
+    "clubs": {
+      "$clubId": {
+        ".read": "$clubId === auth.uid",
+        ".write": "$clubId === auth.uid",
+        "branches": {
+          ".indexOn": ["createdAt"],
+          "$branchId": {
+            "groups": {
+              ".indexOn": ["createdAt"]
+            }
+          }
+        },
+        "students": {
+          "$groupId": {
+            ".indexOn": ["createdAt"]
+          }
+        },
+        "trainers": {
+          ".indexOn": ["createdAt"]
+        },
+        "progress": {
+          "$studentId": {
+            ".indexOn": ["createdAt", "date"]
+          }
+        },
+        "attendance": {
+          "$groupId": {
+            "$date": {
+              "$timeSlot": {
+                ".indexOn": ["studentId", "present"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
